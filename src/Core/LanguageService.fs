@@ -28,6 +28,9 @@ module Notifications =
 
     let mutable notifyWorkspaceHandler : Option<Choice<ProjectResult,ProjectLoadingResult,(string * ErrorData),string> -> unit> = None
 
+    let testDetectedEmitter = vscode.EventEmitter.Create<TestForFile>()
+    let testDetected = testDetectedEmitter.event
+
 module LanguageService =
     module Types =
         type PlainNotification= { content: string }
@@ -771,7 +774,7 @@ Consider:
 
     }
 
-    let readyClient (cl: LanguageClient) = 
+    let readyClient (cl: LanguageClient) =
         cl.onReady ()
         |> Promise.onSuccess (fun _ ->
             cl.onNotification("fsharp/notifyWorkspace", (fun (a: Types.PlainNotification) ->
@@ -802,6 +805,11 @@ Consider:
                     let ev = {Notifications.fileName = a.content; Notifications.version = te.document.version; Notifications.document = te.document }
                     Notifications.onDocumentParsedEmitter.fire ev
                 )
+            ))
+
+            cl.onNotification("fsharp/testDetected", (fun (a: Types.PlainNotification) ->
+                let content = a.content |> ofJson<TestResult>
+                Notifications.testDetectedEmitter.fire content.Data
             ))
         )
 

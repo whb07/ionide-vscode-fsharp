@@ -67,6 +67,7 @@ let activate (context : ExtensionContext) : JS.Promise<Api> =
         Gitignore.activate context
         FSharpLiterate.activate context
         PipelineHints.activate context
+        TestExploer.activate context
 
         let buildProject project = promise {
             let! exit = MSBuild.buildProjectPath "Build" project
