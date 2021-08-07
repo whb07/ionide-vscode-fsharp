@@ -4,6 +4,7 @@ open Fable.Import
 open Fable.Import.VSCode
 open Fable.Import.VSCode.Vscode
 open Ionide.VSCode.Helpers
+open Fable.Core
 
 module Fsdn =
 
@@ -121,7 +122,7 @@ module QuickInfo =
                 let! signature = getOverloadSignature textEditor selections
                 match signature with
                 | Some signature ->
-                    showItem signature (Some signature)
+                    showItem signature (Some (U2.Case1 signature))
                 | _ ->
                     hideItem()
             } |> ignore

@@ -28,7 +28,7 @@ module QuickInfoProject =
                     let loadingInfo = if Project.isLoadingWorkspaceComplete() then "" else " (Still loading...)"
                     let fileNameOnly = node.path.basename fileName
                     item.Value.text <- "$(circuit-board) Not in a F# project" + loadingInfo
-                    item.Value.tooltip <- Some (sprintf "%s is not in any project known to Ionide" fileNameOnly)
+                    item.Value.tooltip <- Some (U2.Case1 (sprintf "%s is not in any project known to Ionide" fileNameOnly))
                     item.Value.command <- Some (U2.Case1 "fsharp.AddFileToProject")
                     item.Value.color <- vscode.ThemeColor.Create "fsharp.statusBarWarnings" |> U2.Case2 |> Some
                     item.Value.show()
@@ -38,7 +38,7 @@ module QuickInfoProject =
                 let pPath = node.path.basename p.Project
                 let text = sprintf "$(circuit-board) %s" pPath
                 item.Value.text <- text
-                item.Value.tooltip <- Some p.Project
+                item.Value.tooltip <- Some (U2.Case1 p.Project)
                 item.Value.command <- Some (U2.Case1 "openProjectFileFromStatusbar")
                 item.Value.color <- undefined
                 item.Value.show()

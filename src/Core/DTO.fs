@@ -377,6 +377,20 @@ module DTO =
         PrecedingNonPipeExprLine : int option
     }
 
+    type TestAdapterEntry = {
+        Name: string
+        Range: Range
+        Childs: TestAdapterEntry []
+        Id : int
+        List: bool
+        Type: string
+    }
+
+    type TestForFile = {
+        File: string
+        Tests: TestAdapterEntry []
+    }
+
     type Result<'T> =
         { Kind : string
           Data : 'T }
@@ -407,6 +421,7 @@ module DTO =
     type HighlightingResult = Result<HighlightingResponse>
     type FSharpLiterateResult = Result<string>
     type PipelineHintsResult = Result<PipelineHint array>
+    type TestResult = Result<TestForFile>
 
 
     module DotnetNew =

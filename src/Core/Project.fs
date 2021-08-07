@@ -637,7 +637,7 @@ module Project =
         let private showItem (text : string) tooltip =
             path <- tooltip
             item.Value.text <- sprintf "$(flame) %s" text
-            item.Value.tooltip <- Some tooltip
+            item.Value.tooltip <- Some !^tooltip
             item.Value.command <- Some (U2.Case1 "showProjStatusFromIndicator")
             item.Value.color <- vscode.ThemeColor.Create "fsharp.statusBarWarnings" |> U2.Case2 |> Some
             item.Value.show()

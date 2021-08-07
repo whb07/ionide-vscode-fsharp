@@ -31,7 +31,7 @@ module PipelineHintsConfig =
           prefix = cfg.get("FSharp.pipelineHints.prefix", defaultConfig.prefix) }
 
 
-module Documents =
+module Documents = 
 
     type Cached =
         { /// vscode document version that was parsed

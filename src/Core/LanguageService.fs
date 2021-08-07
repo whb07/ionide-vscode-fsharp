@@ -771,7 +771,7 @@ Consider:
 
     }
 
-    let readyClient (cl: LanguageClient) =
+    let readyClient (cl: LanguageClient) = 
         cl.onReady ()
         |> Promise.onSuccess (fun _ ->
             cl.onNotification("fsharp/notifyWorkspace", (fun (a: Types.PlainNotification) ->
