@@ -69,9 +69,16 @@ module Project =
         |> max 0
 
     let isNetCoreApp (project: Project) =
+        let exists (n:string) = 
+            // match the versioning scheme for TargetFramework.
+            // the pattern covers .net and netcoreapp versioning schemes
+            let pattern = @"^net(?:(?:[5-6].0)|coreapp[1-3].[0-2]){1}$"
+            let m = System.Text.RegularExpressions.Regex(pattern).Match(n)
+            m.Success
+
         project.Info.TargetFramework
         :: project.Info.TargetFrameworks
-        |> Seq.exists (fun tfm -> tfm = "net5.0" || tfm.StartsWith "netcoreapp")
+        |> Seq.exists exists
 
     let isSDKProjectPath (project: string) =
         let projectContent = (node.fs.readFileSync project).ToString()
